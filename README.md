@@ -10,6 +10,8 @@ This repository serves as an offline-first inventory of general-purpose agent ca
 
 | Path | Description |
 | ---- | ----------- |
+| [**`CATALOG.md`**](file:///c:/dev/ai-agent-setup/CATALOG.md) | The official catalog of all available general-purpose agent skills. |
+| [**`CONTRIBUTING.md`**](file:///c:/dev/ai-agent-setup/CONTRIBUTING.md) | Guidelines for contributing and skill metadata requirements. |
 | [**`catalog/skills/`**](file:///c:/dev/ai-agent-setup/catalog/skills) | Reusable general-purpose agent skills (schemas/instructions). |
 | [**`docs/tooling-setup.md`**](file:///c:/dev/ai-agent-setup/docs/tooling-setup.md) | Guide for setting up central MCP tools, highlighting **Tokensave MCP**. |
 | [**`scripts/`**](file:///c:/dev/ai-agent-setup/scripts) | Cross-platform installer and metadata validation scripts (`install-skill.*`, `validate-metadata.js`). |
@@ -19,13 +21,11 @@ This repository serves as an offline-first inventory of general-purpose agent ca
 
 ## 🛠️ 1. General-Purpose Skills Catalog
 
-Standalone skills designed to be loaded by agents either centrally (user-wide) or locally (project-wide):
+To maintain a modular and scalable repository structure, the complete, detailed listing of all available general-purpose agent skills has been moved to our dedicated catalog file.
 
-*   [**`codebase-health`**](file:///c:/dev/ai-agent-setup/catalog/skills/codebase-health/SKILL.md): Instructs agents to perform a comprehensive codebase checkup (compiles/builds, executes tests, runs lints, validates formatting, checks for vulnerability alerts, and outputs a structured Markdown scorecard).
-*   [**`test-generator`**](file:///c:/dev/ai-agent-setup/catalog/skills/test-generator/SKILL.md): Guides agents in analyzing source modules to design comprehensive unit/integration test matrices covering positive paths, async/mock behaviors, and logical edge cases.
-*   [**`readme-builder`**](file:///c:/dev/ai-agent-setup/catalog/skills/readme-builder/SKILL.md): Directs agents in scanning a codebase and scaffolding or refactoring a gorgeous, interactive README featuring technical overviews, configuration matrices, and dynamic Mermaid diagrams.
-*   [**`pr-reviewer`**](file:///c:/dev/ai-agent-setup/catalog/skills/pr-reviewer/SKILL.md): Directs agents to review PR comment threads (responding or making changes), analyze and debug blocking CI/CD check failures (complexity, builds, tests), and coordinate resolutions in a unified commit-and-wait workflow.
+👉 **View the complete list of capabilities in the [General-Purpose Skills Catalog (CATALOG.md)](file:///c:/dev/ai-agent-setup/CATALOG.md).**
 
+These standalone skills are designed to be loaded by agents either centrally (user-wide) or locally (project-wide) to automate complex tasks like codebase checkups, unit-test generation, README creation, and pull request reviews.
 
 ---
 
@@ -78,36 +78,15 @@ To optimize your AI coding agent's context window usage and cut API token costs,
 
 ---
 
-## 📋 4. Skill Metadata Requirements & Validation
+## 🤝 4. Contributing & Skill Metadata Requirements
 
-To ensure all general-purpose agent skills are correctly registered, categorized, and rendered by target client agents (such as Antigravity IDE or Claude Code), any skill added to the catalog **must** include standard frontmatter metadata at the top of its `SKILL.md` file.
+We welcome community contributions, including adding new skills, improving documentation, or updating installer scripts! 
 
-### Required Frontmatter Schema
-Every `SKILL.md` file must begin with a YAML frontmatter block enclosed between `---` markers:
+To maintain repository health, consistency, and automation quality:
+*   **Pull Requests**: All contributions must be submitted via a Pull Request (PR). Direct pushes to `main` or `master` are strictly prohibited.
+*   **Metadata Validation**: Any general-purpose skill added to the catalog must adhere to our standardized metadata schema.
 
-```yaml
----
-name: pr-reviewer
-description: A short 1-2 sentence description of what the skill accomplishes.
-license: MIT
-metadata:
-  author: ai-agent-setup
-  version: "1.0"
----
-```
-
-### Validation Rules
-1. **Directory Name Match**: The root `name` field must strictly match the parent folder's name (case-sensitive). For example, a skill folder named `codebase-health` must have `name: codebase-health` in its frontmatter.
-2. **Mandatory Fields**: Root-level fields `name`, `description`, and `license` must exist and be populated.
-3. **Mandatory Sub-fields**: The `metadata` block must exist and include non-empty values for both `author` and `version`.
-
-### Automated Verification
-A GitHub Actions workflow verifies these rules on every incoming pull request. You can also run the validation check locally before opening a PR:
-
-```bash
-# Verify all catalog skill specifications
-node scripts/validate-metadata.js
-```
+For detailed guidelines, required YAML frontmatter schema, validation rules, and instructions on how to run tests locally, please refer directly to our [**Contributing Guide (CONTRIBUTING.md)**](file:///c:/dev/ai-agent-setup/CONTRIBUTING.md).
 
 ---
 
