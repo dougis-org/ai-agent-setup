@@ -23,6 +23,8 @@ Standalone skills designed to be loaded by agents either centrally (user-wide) o
 *   [**`codebase-health`**](file:///c:/dev/ai-agent-setup/catalog/skills/codebase-health/SKILL.md): Instructs agents to perform a comprehensive codebase checkup (compiles/builds, executes tests, runs lints, validates formatting, checks for vulnerability alerts, and outputs a structured Markdown scorecard).
 *   [**`test-generator`**](file:///c:/dev/ai-agent-setup/catalog/skills/test-generator/SKILL.md): Guides agents in analyzing source modules to design comprehensive unit/integration test matrices covering positive paths, async/mock behaviors, and logical edge cases.
 *   [**`readme-builder`**](file:///c:/dev/ai-agent-setup/catalog/skills/readme-builder/SKILL.md): Directs agents in scanning a codebase and scaffolding or refactoring a gorgeous, interactive README featuring technical overviews, configuration matrices, and dynamic Mermaid diagrams.
+*   [**`pr-reviewer`**](file:///c:/dev/ai-agent-setup/catalog/skills/pr-reviewer/SKILL.md): Directs agents to review PR comment threads (responding or making changes), analyze and debug blocking CI/CD check failures (complexity, builds, tests), and coordinate resolutions in a unified commit-and-wait workflow.
+
 
 ---
 
