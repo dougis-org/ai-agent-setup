@@ -1,0 +1,32 @@
+name: Validate Skill Metadata
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'catalog/skills/**/SKILL.md'
+      - 'scripts/validate-metadata.js'
+      - '.github/workflows/validate-metadata.yml'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - 'catalog/skills/**/SKILL.md'
+      - 'scripts/validate-metadata.js'
+      - '.github/workflows/validate-metadata.yml'
+
+jobs:
+  validate:
+    name: Verify Skill Frontmatter Metadata
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run Metadata Validation Script
+        run: node scripts/validate-metadata.js

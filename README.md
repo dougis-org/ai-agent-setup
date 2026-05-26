@@ -12,7 +12,8 @@ This repository serves as an offline-first inventory of general-purpose agent ca
 | ---- | ----------- |
 | [**`catalog/skills/`**](file:///c:/dev/ai-agent-setup/catalog/skills) | Reusable general-purpose agent skills (schemas/instructions). |
 | [**`docs/tooling-setup.md`**](file:///c:/dev/ai-agent-setup/docs/tooling-setup.md) | Guide for setting up central MCP tools, highlighting **Tokensave MCP**. |
-| [**`scripts/`**](file:///c:/dev/ai-agent-setup/scripts) | Cross-platform interactive installer scripts (`install-skill.ps1` / `install-skill.sh`). |
+| [**`scripts/`**](file:///c:/dev/ai-agent-setup/scripts) | Cross-platform installer and metadata validation scripts (`install-skill.*`, `validate-metadata.js`). |
+| [**`.github/workflows/`**](file:///c:/dev/ai-agent-setup/.github/workflows) | CI automation workflows, including automated metadata verification on Pull Requests. |
 
 ---
 
@@ -77,7 +78,40 @@ To optimize your AI coding agent's context window usage and cut API token costs,
 
 ---
 
-## 📜 4. OpenSpec Spec-Driven Workflows (Reference)
+## 📋 4. Skill Metadata Requirements & Validation
+
+To ensure all general-purpose agent skills are correctly registered, categorized, and rendered by target client agents (such as Antigravity IDE or Claude Code), any skill added to the catalog **must** include standard frontmatter metadata at the top of its `SKILL.md` file.
+
+### Required Frontmatter Schema
+Every `SKILL.md` file must begin with a YAML frontmatter block enclosed between `---` markers:
+
+```yaml
+---
+name: pr-reviewer
+description: A short 1-2 sentence description of what the skill accomplishes.
+license: MIT
+metadata:
+  author: ai-agent-setup
+  version: "1.0"
+---
+```
+
+### Validation Rules
+1. **Directory Name Match**: The root `name` field must strictly match the parent folder's name (case-sensitive). For example, a skill folder named `codebase-health` must have `name: codebase-health` in its frontmatter.
+2. **Mandatory Fields**: Root-level fields `name`, `description`, and `license` must exist and be populated.
+3. **Mandatory Sub-fields**: The `metadata` block must exist and include non-empty values for both `author` and `version`.
+
+### Automated Verification
+A GitHub Actions workflow verifies these rules on every incoming pull request. You can also run the validation check locally before opening a PR:
+
+```bash
+# Verify all catalog skill specifications
+node scripts/validate-metadata.js
+```
+
+---
+
+## 📜 5. OpenSpec Spec-Driven Workflows (Reference)
 
 For projects using spec-driven development workflows, the source of truth for all OpenSpec-specific skills and templates is the **`openspec-shared`** repository.
 
