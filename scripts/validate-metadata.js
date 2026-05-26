@@ -2,12 +2,20 @@ const fs = require('fs');
 const path = require('path');
 
 const skillsDir = path.join(__dirname, '../catalog/skills');
+const catalogPath = path.join(__dirname, '../CATALOG.md');
 let hasErrors = false;
 
 if (!fs.existsSync(skillsDir)) {
   console.error(`❌ Error: Catalog directory not found at ${skillsDir}`);
   process.exit(1);
 }
+
+if (!fs.existsSync(catalogPath)) {
+  console.error(`❌ Error: CATALOG.md not found at ${catalogPath}`);
+  process.exit(1);
+}
+
+const catalogContent = fs.readFileSync(catalogPath, 'utf8');
 
 // Read all subdirectories in catalog/skills
 const skillDirs = fs.readdirSync(skillsDir).filter(f => fs.statSync(path.join(skillsDir, f)).isDirectory());
@@ -116,6 +124,13 @@ for (const dir of skillDirs) {
 
   if (metadata.name && metadata.name !== dir) {
     console.error(`❌ Error in ${dir}/SKILL.md: Skill "name" ("${metadata.name}") must match the folder name ("${dir}")`);
+    fileHasErrors = true;
+    hasErrors = true;
+  }
+
+  // Ensure the skill is listed in CATALOG.md
+  if (!catalogContent.includes(dir)) {
+    console.error(`❌ Error in ${dir}: Skill is missing from the CATALOG.md file.`);
     fileHasErrors = true;
     hasErrors = true;
   }

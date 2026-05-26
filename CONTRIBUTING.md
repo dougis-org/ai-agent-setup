@@ -14,7 +14,7 @@ To maintain repository health, consistency, and stability, all contributors must
 When contributing, please adhere to the following workflow:
 
 1. **Fork or Branch**: Create a new branch from `main` or `master`. Use a descriptive, kebab-case branch name (e.g., `feature/add-my-skill` or `fix/metadata-typo`).
-2. **Develop**: Make your changes or implement your new agent skill following our metadata standards.
+2. **Develop**: Make your changes or implement your new agent skill following our metadata standards. **If you are adding a new skill, you must register it in the [CATALOG.md](file:///c:/dev/ai-agent-setup/CATALOG.md) file.**
 3. **Validate**: Test your changes locally to ensure everything works as expected (see [Metadata Validation](#-skill-metadata-requirements--validation)).
 4. **Submit PR**: Open a Pull Request targeting the `main` branch. 
 5. **Describe Your Changes**: Provide a clear, detailed summary of what your PR introduces, why it is needed, and any manual verification you performed.
@@ -47,6 +47,7 @@ metadata:
 1. **Directory Name Match**: The root `name` field must strictly match the parent folder's name (case-sensitive). For example, a skill folder named `codebase-health` must have `name: codebase-health` in its frontmatter.
 2. **Mandatory Fields**: Root-level fields `name`, `description`, and `license` must exist and be populated.
 3. **Mandatory Sub-fields**: The `metadata` block must exist and include non-empty values for both `author` and `version`.
+4. **Catalog Registration**: The skill must be listed in [**CATALOG.md**](file:///c:/dev/ai-agent-setup/CATALOG.md).
 
 ### Automated & Local Verification
 
