@@ -14,7 +14,7 @@ To maintain repository health, consistency, and stability, all contributors must
 When contributing, please adhere to the following workflow:
 
 1. **Fork or Branch**: Create a new branch from `main` or `master`. Use a descriptive, kebab-case branch name (e.g., `feature/add-my-skill` or `fix/metadata-typo`).
-2. **Develop**: Make your changes or implement your new agent skill following our metadata standards. **If you are adding a new skill, you must register it in the [CATALOG.md](file:///c:/dev/ai-agent-setup/CATALOG.md) file.**
+2. **Develop**: Make your changes or implement your new agent skill following our metadata standards. **If you are adding a new skill, you must register it in the [CATALOG.md](CATALOG.md) file.**
 3. **Validate**: Test your changes locally to ensure everything works as expected (see [Metadata Validation](#-skill-metadata-requirements--validation)).
 4. **Submit PR**: Open a Pull Request targeting the `main` branch. 
 5. **Describe Your Changes**: Provide a clear, detailed summary of what your PR introduces, why it is needed, and any manual verification you performed.
@@ -25,11 +25,11 @@ When contributing, please adhere to the following workflow:
 
 ## 📋 Skill Metadata Requirements & Validation
 
-To ensure all general-purpose agent skills are correctly registered, categorized, and rendered by target client agents (such as **Antigravity IDE** or **Claude Code**), any skill added to the catalog **must** include standard frontmatter metadata at the top of its `SKILL.md` file.
+To ensure all general-purpose agent skills are correctly registered, categorized, and rendered by target client agents (such as **Antigravity IDE** or **Claude Code**), any skill added to the catalog **must** include standard frontmatter metadata at the top of its [**`SKILL.md`**](catalog/skills) file.
 
 ### Required Frontmatter Schema
 
-Every `SKILL.md` file must begin with a YAML frontmatter block enclosed between `---` markers:
+Every [**`SKILL.md`**](catalog/skills) file must begin with a YAML frontmatter block enclosed between `---` markers:
 
 ```yaml
 ---
@@ -47,7 +47,7 @@ metadata:
 1. **Directory Name Match**: The root `name` field must strictly match the parent folder's name (case-sensitive). For example, a skill folder named `codebase-health` must have `name: codebase-health` in its frontmatter.
 2. **Mandatory Fields**: Root-level fields `name`, `description`, and `license` must exist and be populated.
 3. **Mandatory Sub-fields**: The `metadata` block must exist and include non-empty values for both `author` and `version`.
-4. **Catalog Registration**: The skill must be listed in [**CATALOG.md**](file:///c:/dev/ai-agent-setup/CATALOG.md).
+4. **Catalog Registration**: The skill must be listed in [**CATALOG.md**](CATALOG.md).
 
 ### Automated & Local Verification
 

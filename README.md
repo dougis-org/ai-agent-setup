@@ -10,12 +10,12 @@ This repository serves as an offline-first inventory of general-purpose agent ca
 
 | Path | Description |
 | ---- | ----------- |
-| [**`CATALOG.md`**](file:///c:/dev/ai-agent-setup/CATALOG.md) | The official catalog of all available general-purpose agent skills. |
-| [**`CONTRIBUTING.md`**](file:///c:/dev/ai-agent-setup/CONTRIBUTING.md) | Guidelines for contributing and skill metadata requirements. |
-| [**`catalog/skills/`**](file:///c:/dev/ai-agent-setup/catalog/skills) | Reusable general-purpose agent skills (schemas/instructions). |
-| [**`docs/tooling-setup.md`**](file:///c:/dev/ai-agent-setup/docs/tooling-setup.md) | Guide for setting up central MCP tools, highlighting **Tokensave MCP**. |
-| [**`scripts/`**](file:///c:/dev/ai-agent-setup/scripts) | Cross-platform installer and metadata validation scripts (`install-skill.*`, `validate-metadata.js`). |
-| [**`.github/workflows/`**](file:///c:/dev/ai-agent-setup/.github/workflows) | CI automation workflows, including automated metadata verification on Pull Requests. |
+| [**`CATALOG.md`**](CATALOG.md) | The official catalog of all available general-purpose agent skills. |
+| [**`CONTRIBUTING.md`**](CONTRIBUTING.md) | Guidelines for contributing and skill metadata requirements. |
+| [**`catalog/skills/`**](catalog/skills) | Reusable general-purpose agent skills (schemas/instructions). |
+| [**`docs/tooling-setup.md`**](docs/tooling-setup.md) | Guide for setting up central MCP tools, highlighting **Tokensave MCP**. |
+| [**`scripts/`**](scripts) | Cross-platform installer and metadata validation scripts (`install-skill.*`, `validate-metadata.js`). |
+| [**`.github/workflows/`**](.github/workflows) | CI automation workflows, including automated metadata verification on Pull Requests. |
 
 ---
 
@@ -23,7 +23,7 @@ This repository serves as an offline-first inventory of general-purpose agent ca
 
 To maintain a modular and scalable repository structure, the complete, detailed listing of all available general-purpose agent skills has been moved to our dedicated catalog file.
 
-👉 **View the complete list of capabilities in the [General-Purpose Skills Catalog (CATALOG.md)](file:///c:/dev/ai-agent-setup/CATALOG.md).**
+👉 **View the complete list of capabilities in the [General-Purpose Skills Catalog (CATALOG.md)](CATALOG.md).**
 
 These standalone skills are designed to be loaded by agents either centrally (user-wide) or locally (project-wide) to automate complex tasks like codebase checkups, unit-test generation, README creation, and pull request reviews.
 
@@ -74,7 +74,7 @@ sh scripts/install-skill.sh --skill test-generator --target local --path /path/t
 
 To optimize your AI coding agent's context window usage and cut API token costs, configure the **TokenSave MCP server**. TokenSave indexes class inheritance, call graphs, imports, and methods into a local SQLite database, allowing agents to query semantic graphs instead of executing expensive whole-file reads.
 
-*   **Setup Guide**: Follow the step-by-step instructions in the [**tooling-setup.md**](file:///c:/dev/ai-agent-setup/docs/tooling-setup.md) guide to install the native TokenSave binary, pre-index your repositories, and register it centrally in your Antigravity, Claude, or Claude Desktop environments.
+*   **Setup Guide**: Follow the step-by-step instructions in the [**tooling-setup.md**](docs/tooling-setup.md) guide to install the native TokenSave binary, pre-index your repositories, and register it centrally in your Antigravity, Claude, or Claude Desktop environments.
 
 ---
 
@@ -86,7 +86,7 @@ To maintain repository health, consistency, and automation quality:
 *   **Pull Requests**: All contributions must be submitted via a Pull Request (PR). Direct pushes to `main` or `master` are strictly prohibited.
 *   **Metadata Validation**: Any general-purpose skill added to the catalog must adhere to our standardized metadata schema.
 
-For detailed guidelines, required YAML frontmatter schema, validation rules, and instructions on how to run tests locally, please refer directly to our [**Contributing Guide (CONTRIBUTING.md)**](file:///c:/dev/ai-agent-setup/CONTRIBUTING.md).
+For detailed guidelines, required YAML frontmatter schema, validation rules, and instructions on how to run tests locally, please refer directly to our [**Contributing Guide (CONTRIBUTING.md)**](CONTRIBUTING.md).
 
 ---
 
@@ -94,4 +94,4 @@ For detailed guidelines, required YAML frontmatter schema, validation rules, and
 
 For projects using spec-driven development workflows, the source of truth for all OpenSpec-specific skills and templates is the **`openspec-shared`** repository.
 
-*   **Submodule Reference**: Please refer directly to the [**`openspec-shared` README**](file:///c:/dev/openspec-shared/README.md) (or their [GitHub repository](https://github.com/dougis-org/openspec-shared)) for the definitive guide on adding `openspec-shared` as a submodule to your project and running its custom `bootstrap.sh` script to wire up spec proposal, exploration, code review, and archiving workflows.
+*   **Submodule Reference**: Please refer directly to the [**`openspec-shared` README**](../openspec-shared/README.md) (or their [GitHub repository](https://github.com/dougis-org/openspec-shared)) for the definitive guide on adding `openspec-shared` as a submodule to your project and running its custom `bootstrap.sh` script to wire up spec proposal, exploration, code review, and archiving workflows.
