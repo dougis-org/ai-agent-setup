@@ -13,7 +13,7 @@ This repository serves as an offline-first inventory of general-purpose agent ca
 | [**`CATALOG.md`**](CATALOG.md) | The official catalog of all available general-purpose agent skills. |
 | [**`CONTRIBUTING.md`**](CONTRIBUTING.md) | Guidelines for contributing and skill metadata requirements. |
 | [**`catalog/skills/`**](catalog/skills) | Reusable general-purpose agent skills (schemas/instructions). |
-| [**`docs/tooling-setup.md`**](docs/tooling-setup.md) | Guide for setting up central MCP tools, highlighting **Tokensave MCP**. |
+| [**`docs/tooling-setup.md`**](docs/tooling-setup.md) | Guide for setting up central MCP and agent tools, highlighting **Tokensave** and **RTK**. |
 | [**`scripts/`**](scripts) | Cross-platform installer and metadata validation scripts (`install-skill.*`, `validate-metadata.js`). |
 | [**`.github/workflows/`**](.github/workflows) | CI automation workflows, including automated metadata verification on Pull Requests. |
 
@@ -70,11 +70,17 @@ sh scripts/install-skill.sh --skill test-generator --target local --path /path/t
 
 ---
 
-## ⚡ 3. Centralized Tooling: TokenSave MCP
+## ⚡ 3. Centralized Tooling
 
-To optimize your AI coding agent's context window usage and cut API token costs, configure the **TokenSave MCP server**. TokenSave indexes class inheritance, call graphs, imports, and methods into a local SQLite database, allowing agents to query semantic graphs instead of executing expensive whole-file reads.
+To optimize your AI coding agent's context window usage, reduce latency, and dramatically cut API token costs, we support and recommend configuring centralized tooling:
 
-*   **Setup Guide**: Follow the step-by-step instructions in the [**tooling-setup.md**](docs/tooling-setup.md) guide to install the native TokenSave binary, pre-index your repositories, and register it centrally in your Antigravity, Claude, or Claude Desktop environments.
+### 3.1 TokenSave MCP
+Configure the **TokenSave MCP server** to index class inheritance, call graphs, imports, and methods into a local SQLite database. This allows agents to query semantic graphs instead of executing expensive whole-file reads.
+*   **Setup Guide**: Follow the step-by-step instructions in the [**tooling-setup.md**](docs/tooling-setup.md#1-the-tokensave-mcp-tooling) guide to install the native TokenSave binary, pre-index your repositories, and register it centrally in your Antigravity, Claude, or Claude Desktop environments.
+
+### 3.2 RTK (Rust Token Killer)
+Integrate **RTK** to automatically intercept, filter, and compress verbose terminal command outputs (like `git status`, `ls`, `grep`, or `cargo test`) before they reach your AI agent's context window.
+*   **Setup Guide**: Follow the step-by-step instructions in the [**tooling-setup.md**](docs/tooling-setup.md#7-the-rtk-rust-token-killer-tooling) guide to install RTK, initialize its global shell hooks, and monitor your token savings.
 
 ---
 

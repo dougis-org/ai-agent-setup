@@ -1,8 +1,10 @@
 # Centralized Agent Tooling & MCP Setup Guide
 
-This guide describes how to configure and run centralized Model Context Protocol (MCP) tooling for your AI coding agents (such as **Antigravity IDE**, **Claude Code**, and **Claude Desktop**). 
+This guide describes how to configure and run centralized Model Context Protocol (MCP) tooling and command-line proxies for your AI coding agents (such as **Antigravity IDE**, **Claude Code**, and **Claude Desktop**). 
 
-The primary focus is **Tokensave**, a local-first semantic indexer designed to dramatically reduce token costs and accelerate codebase comprehension.
+The primary focuses are:
+1. **TokenSave**: A local-first semantic indexer designed to dramatically reduce token costs and accelerate codebase comprehension.
+2. **RTK (Rust Token Killer)**: A high-performance CLI proxy that intercepts terminal command outputs and compresses them by 60–90% before they reach the agent.
 
 ---
 
@@ -172,3 +174,75 @@ To build a fully centralized agent powerhouse, consider registering these additi
 | **SQLite** | `npx -y @modelcontextprotocol/server-sqlite` | Grants agents direct, read-only query access to local databases. |
 | **Filesystem** | `npx -y @modelcontextprotocol/server-filesystem <allowed-paths>` | Lets agents safely access explicit folders outside the workspace tree. |
 | **GitHub** | `npx -y @modelcontextprotocol/server-github` | Grants agents abilities to create issues, pull requests, and review comments. |
+
+---
+
+## ⚡ 7. The RTK (Rust Token Killer) Tooling
+
+### What is RTK?
+Traditional AI coding agents execute shell commands (`git status`, `ls`, `cargo test`, `npm run build`) to understand the environment and test results. These commands often return verbose, repetitive, or noisy terminal outputs that fill up the agent's context window and waste API tokens.
+
+**RTK** acts as a lightweight command-line proxy:
+1. It intercepts standard shell commands before the agent processes their output.
+2. It strips out low-value noise, comments, whitespace, and repetitive log lines.
+3. It aggregates similar items (e.g., grouping files or compiler warnings).
+4. It presents compressed, high-signal information back to the agent, reducing token consumption by **60–90%**.
+
+---
+
+## 📥 8. Installing RTK
+
+Since RTK is a high-performance Rust binary, install it directly onto your system.
+
+> [!WARNING]
+> **Avoid crates.io Direct Collision**: Do NOT run `cargo install rtk` directly. There is another package named `rtk` (Rust Type Kit) on crates.io. You must install the official tool using the `--git` flag or via Homebrew/Release binaries.
+
+### Option A: Homebrew (macOS / Linux - Recommended)
+```bash
+brew install rtk
+```
+
+### Option B: Cargo (All Platforms with Rust Toolchain)
+```bash
+cargo install --git https://github.com/rtk-ai/rtk
+```
+
+### Option C: Quick Shell Script (Linux / macOS)
+```bash
+curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | sh
+```
+*(Ensure `~/.local/bin` is added to your system `PATH` if not already present).*
+
+### Option D: Windows Manual Install
+1. Go to the [RTK Releases page](https://github.com/rtk-ai/rtk/releases).
+2. Download the appropriate `.zip` package for Windows.
+3. Extract `rtk.exe` and place it in a folder included in your system `PATH` (e.g., your Scoop shims or a dedicated tools directory).
+
+---
+
+## ⚙️ 9. RTK Setup & Agent Initialization
+
+Once installed, configure RTK to automatically hook into your agent's shell environment.
+
+### Global Agent Integration
+RTK can automatically intercept commands run by tools like Claude Code and Gemini/Antigravity shell environments. Enable global hooks:
+
+```bash
+# Initialize global shell hooks for standard agents (e.g., Claude Code, Copilot)
+rtk init -g
+
+# Or specifically enable Gemini / Antigravity support
+rtk init -g --gemini
+```
+
+### Verifying Setup & Tracking Gains
+Verify that RTK is properly working:
+```bash
+# Check version
+rtk --version
+
+# View accumulated token savings stats
+rtk gain
+```
+
+Once initialized, standard shell commands run by your agent will automatically and transparently flow through RTK, saving your tokens without requiring any prefix commands!
