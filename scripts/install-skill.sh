@@ -69,8 +69,8 @@ if [ ! -d "$CATALOG_PATH" ]; then
   exit 1
 fi
 
-# 2. Get list of available skills
-AVAILABLE_SKILLS=$(find "$CATALOG_PATH" -mindepth 1 -maxdepth 1 -type d -exec basename {} \;)
+# 2. Get list of available skills (sorted with C locale for stable, deterministic ordering)
+AVAILABLE_SKILLS=$(find "$CATALOG_PATH" -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | LC_ALL=C sort)
 
 if [ -z "$AVAILABLE_SKILLS" ]; then
   echo "error: no skills found in catalog at $CATALOG_PATH" >&2
@@ -81,14 +81,16 @@ fi
 if [ -z "$SKILL_NAME" ]; then
   echo ""
   echo "Available Skills in Catalog:"
+  # Iterate line-by-line via read (do NOT rely on unquoted word-splitting,
+  # which is disabled by default in zsh and would collapse the list to one item).
   i=1
-  # Create a temporary array-like structure in sh
-  for skill in $AVAILABLE_SKILLS; do
+  printf '%s\n' "$AVAILABLE_SKILLS" | while IFS= read -r skill; do
+    [ -n "$skill" ] || continue
     echo "  [$i] $skill"
     i=$((i+1))
   done
-  
-  max=$((i-1))
+
+  max=$(printf '%s\n' "$AVAILABLE_SKILLS" | grep -c .)
   selection=""
   while [ -z "$selection" ]; do
     printf "\nSelect a skill number (1-$max): "
@@ -100,15 +102,9 @@ if [ -z "$SKILL_NAME" ]; then
     fi
   done
   
-  # Retrieve the chosen skill name
-  curr=1
-  for skill in $AVAILABLE_SKILLS; do
-    if [ "$curr" -eq "$selection" ]; then
-      SKILL_NAME="$skill"
-      break
-    fi
-    curr=$((curr+1))
-  done
+  # Retrieve the chosen skill name by line number (sed, not a subshell loop,
+  # so the assignment survives — and again no reliance on word-splitting).
+  SKILL_NAME=$(printf '%s\n' "$AVAILABLE_SKILLS" | grep . | sed -n "${selection}p")
 else
   # Verify selected skill exists
   if [ ! -d "$CATALOG_PATH/$SKILL_NAME" ]; then
