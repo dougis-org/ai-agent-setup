@@ -14,6 +14,8 @@ This catalog contains the comprehensive list of general-purpose agent skills ava
     *   **Description**: Directs agents in scanning a codebase and scaffolding or refactoring a gorgeous, interactive README featuring technical overviews, configuration matrices, and dynamic Mermaid diagrams.
 *   [**`pr-reviewer`**](catalog/skills/pr-reviewer/SKILL.md)
     *   **Description**: Directs agents to review PR comment threads (responding or making changes), analyze and debug blocking CI/CD check failures (complexity, builds, tests), and coordinate resolutions in a unified commit-and-wait workflow.
+*   [**`get-next-project-issue`**](catalog/skills/get-next-project-issue/SKILL.md)
+    *   **Description**: Finds the next logical unblocked GitHub issue to work on for any project tracked in the `docs/` folder. Syncs to main, discovers project doc folders, evaluates current issue states against GitHub, updates docs on a branch, cuts a documentation PR set to auto-merge, monitors it to completion, then presents the next ready-to-action issue with acceptance criteria and suggested start commands.
 
 ---
 
